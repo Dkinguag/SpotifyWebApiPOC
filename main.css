@@ -1,0 +1,53 @@
+.btn.dropdown-toggle {
+  width: 150px;
+  text-align: left;
+}
+
+span.caret {
+  position: absolute;
+  left: 90%;
+  top: 45%;
+}
+
+label {
+  padding-top: 5px;
+}
+
+.form-label {
+  padding-left: 0px !important;
+}
+
+img {
+  width: 140px;
+  height: 140px;
+}
+
+.btn-success {
+  background-color: #3b7d4a !important;
+}
+
+.btn-success:hover {
+  background-color: #4daf64 !important;
+}
+
+img.track {
+  border: 1px solid #8a8a8a;
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+  width: 50%;
+  margin: 50px auto;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
