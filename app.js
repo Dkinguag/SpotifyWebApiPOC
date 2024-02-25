@@ -334,7 +334,7 @@ const APPController = (function(UICtrl, APICtrl) {
         
     });
 
-    // create submit button click event listener
+    // create song submit button click event listener
     DOMInputs.songSubmit.addEventListener('click', async (e) => {
         // prevent page reset
         e.preventDefault();
@@ -342,38 +342,21 @@ const APPController = (function(UICtrl, APICtrl) {
         UICtrl.resetTracks();
         //get the token
         const token = UICtrl.getStoredToken().token;        
-        // get the playlist field
-        // const playlistSelect = UICtrl.inputField().playlist;
-
-        // // get track endpoint based on the selected playlist
-        // const tracksEndPoint = playlistSelect.options[playlistSelect.selectedIndex].value;
-
-        // // get the list of tracks
-        // const tracks = await APICtrl.getTracks(token, tracksEndPoint);
-        // console.log(tracks);
-
-        // // create a track list item
-        // tracks.forEach(el => UICtrl.createTrack(el.track.href, el.track.name))
-        
         // grab search field input
         const query = UICtrl.inputField().query.value;
         // get artist from search query
-        const searchResult = await APICtrl.getSearchArtist(token, query);
+        const searchResult = await APICtrl.getSongName(token, query);
         console.log(searchResult);
         // get artist id
-        const artistId = searchResult.artists.items[0].id;
+        const trackName = searchResult.tracks.items[0].name;
+        console.log(trackName);
 
         // get the list of tracks
-        const artistTrackInfo = await APICtrl.getTopTracksByArtist(token, artistId);
-        console.log(artistTrackInfo);
+        const songTrackInfo = await APICtrl.getSongName(token, trackName);
+        console.log(songTrackInfo);
 
         // create a track list item
-        artistTrackInfo.tracks.forEach(el => UICtrl.createTrack(el.href, el.name))
-        
-        //
-        const artistAlbumInfo = await APICtrl.getTopAlbumsByArtist(token, artistId);
-        console.log(artistAlbumInfo);
-        
+        songTrackInfo.tracks.items.forEach(el => UICtrl.createTrack(el.href, el.name)); 
     });
 
     // create song selection click event listener

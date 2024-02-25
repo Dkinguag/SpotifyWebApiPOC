@@ -20,6 +20,11 @@ label {
 img {
   width: 140px;
   height: 140px;
+  border: 3px solid #3b7d4a;
+}
+
+button {
+  display: inline;
 }
 
 .btn-success {
@@ -31,7 +36,7 @@ img {
 }
 
 img.track {
-  border: 1px solid #8a8a8a;
+  border: 3px solid #4daf64;
 }
 
 .has-search .form-control {
