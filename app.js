@@ -1,3 +1,20 @@
+const body = document.body;
+const box = document.querySelectorAll(".audio")
+const btn = document.querySelector(".btn");
+const navItems = document.querySelectorAll(".nav-item")
+const label = document.querySelectorAll("label")
+
+btn.addEventListener("click", ()=>{
+    body.style.background = "radial-gradient(788px at 0.7% 3.4%, rgb(164, 231, 192) 0%, rgb(255, 255, 255) 90%)";
+    for(i=0; i<=box.length; i++){
+        let presentBox = box[i]
+        presentBox.style.backgroundColor = "#FFF"
+        presentBox.style.color = "black"
+        presentBox.style.boxShadow = ".1px .1px 14px 0.1px #a19f9f"
+        btn.innerHTML = "Dark"
+    } 
+})
+
 const APIController = (function() {
 
     const clientID = '876f10e25d6f4bd39fd5a137838b79e1';
@@ -163,6 +180,7 @@ const UIController = (function() {
         selectPlaylist: '#select_playlist',
         buttonSubmit: '#btn_submit',
         songButtonSubmit: '#secondBtn_submit',
+        discoveryButtonSubmit: '#discoveryBtn_submit',
         divSongDetail: '#song-detail',
         hfToken: '#hidden_token',
         divSonglist: '.song-list',
@@ -180,6 +198,7 @@ const UIController = (function() {
                 tracks: document.querySelector(DOMElements.divSonglist),
                 submit: document.querySelector(DOMElements.buttonSubmit),
                 songSubmit: document.querySelector(DOMElements.songButtonSubmit),
+                discoverySubmit: document.querySelector(DOMElements.discoveryButtonSubmit),
                 songDetail: document.querySelector(DOMElements.divSongDetail),
                 query: document.querySelector(DOMElements.query)
             }
@@ -300,19 +319,6 @@ const APPController = (function(UICtrl, APICtrl) {
         UICtrl.resetTracks();
         //get the token
         const token = UICtrl.getStoredToken().token;        
-        // get the playlist field
-        // const playlistSelect = UICtrl.inputField().playlist;
-
-        // // get track endpoint based on the selected playlist
-        // const tracksEndPoint = playlistSelect.options[playlistSelect.selectedIndex].value;
-
-        // // get the list of tracks
-        // const tracks = await APICtrl.getTracks(token, tracksEndPoint);
-        // console.log(tracks);
-
-        // // create a track list item
-        // tracks.forEach(el => UICtrl.createTrack(el.track.href, el.track.name))
-        
         // grab search field input
         const query = UICtrl.inputField().query.value;
         // get artist from search query
@@ -357,6 +363,29 @@ const APPController = (function(UICtrl, APICtrl) {
 
         // create a track list item
         songTrackInfo.tracks.items.forEach(el => UICtrl.createTrack(el.href, el.name)); 
+    });
+
+     // create submit button click event listener
+     DOMInputs.discoverySubmit.addEventListener('click', async (e) => {
+        // prevent page reset
+        e.preventDefault();
+        // clear tracks
+        UICtrl.resetTracks();
+        //get the token
+        const token = UICtrl.getStoredToken().token;        
+        // get the playlist field
+        const playlistSelect = UICtrl.inputField().playlist;
+
+        // get track endpoint based on the selected playlist
+        const tracksEndPoint = playlistSelect.options[playlistSelect.selectedIndex].value;
+
+        // get the list of tracks
+        const tracks = await APICtrl.getTracks(token, tracksEndPoint);
+        console.log(tracks);
+
+        // create a track list item
+        tracks.forEach(el => UICtrl.createTrack(el.track.href, el.track.name))
+        
     });
 
     // create song selection click event listener
